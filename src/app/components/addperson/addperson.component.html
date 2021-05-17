@@ -1,0 +1,116 @@
+<div class="main-container" fxLayout="column" fxLayoutAlign="center none">
+  <app-header></app-header>
+  <form
+    class="form-container"
+    fxLayout="column"
+    fxLayoutAlign="center none"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+    <header class="form-header" fxLayout="row" fxLayoutAlign="center none">
+      <div class="form-text">PERSON ADDRESS FORM</div>
+      <a href="../pages/home.html"
+        ><img
+          class="cancel-logo"
+          src="../../../assets/icons/cancel.jpeg"
+          alt="cancel"
+          routerLink="/home"
+      /></a>
+    </header>
+
+    <div class="row-content">
+      <mat-form-field appearance="outline" class="element">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" formControlName="name" />
+        <mat-error *ngIf="validate('name')">{{ errors["name"] }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row-content col-layout">
+      <div class="element">
+        <mat-form-field at-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input
+            matInput
+            placeholder="Phone Number"
+            formControlName="phoneNumber"
+          />
+          <mat-error *ngIf="validate('phoneNumber')">{{
+            errors["phoneNumber"]
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="element">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email" />
+          <mat-error *ngIf="validate('email')">{{ errors["email"] }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row-content">
+      <mat-form-field appearance="outline" class="element">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Address" formControlName="locality" />
+        <mat-error *ngIf="validate('locality')">{{
+          errors["locality"]
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row-content select-buttons">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+        style="box-sizing: border-box; margin: 5px 30px 0px 30px"
+      >
+        <div class="select1">
+          <mat-form-field appearance="fill" class="mat-field">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let state of states" [value]="state">
+                {{ state }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="select2">
+          <mat-form-field appearance="fill" class="mat-field">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city">
+              <mat-option *ngFor="let city of cities" [value]="city">
+                {{ city }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="select3">
+          <mat-form-field appearance="outline" class="mat-field">
+            <mat-label>Zip</mat-label>
+            <input matInput placeholder="Zip" formControlName="zip" />
+            <mat-error *ngIf="validate('zip')">{{ errors["zip"] }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-content buttonParent">
+      <div class="submit-reset">
+        <button class="submitButton button" type="submit " id="submit">
+          Submit
+        </button>
+        <button
+          class="resetButton button"
+          type="reset"
+          id="reset"
+          (click)="reset()"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

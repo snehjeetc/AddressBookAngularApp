@@ -1,0 +1,119 @@
+.main-container {
+  width: 100%;
+  background: #f7f7f7 0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 2%;
+}
+
+.form-container {
+  display: flex;
+  width: 700px;
+  border: 1px solid rgb(240, 235, 235);
+  border-radius: 8px;
+  opacity: 1;
+  margin-left: 10%;
+}
+
+.form-header {
+  align-items: center;
+  background: #008cff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  justify-content: space-between;
+  border-radius: 6px 6px 0px 0px;
+}
+
+.form-header .form-text {
+  text-align: center;
+  flex: 1;
+  font: normal normal normal 25px/37px Montserrat;
+  font-family: "Montserrat", sans-serif;
+  margin: auto;
+}
+
+.cancel-logo {
+  padding: 25px;
+}
+
+.row-content {
+  display: flex;
+  padding: 14px;
+  margin-left: 2%;
+}
+
+.element {
+  flex: 1 0 auto;
+  padding: 0 2em;
+}
+
+.text-field {
+  width: 100%;
+  margin-right: 2%;
+}
+
+.select-buttons {
+  align-items: center;
+  box-sizing: border-box;
+}
+
+// .select {
+//   width: 32%;
+//   margin-right: 5%;
+// }
+
+.inner-class {
+  position: absolute;
+  padding-left: 15px;
+  align-items: center;
+}
+
+.buttonParent {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 3%;
+  padding: 20px;
+}
+
+.select3 .mat-field {
+  width: 88%;
+}
+
+.mat-field {
+  width: 70%;
+}
+
+.button {
+  font-size: 20px;
+  font-family: Roboto;
+  letter-spacing: 0px;
+  color: #42515f;
+  opacity: 1;
+  background: transparent;
+  border: none;
+  font-weight: 40%;
+  min-width: 130px;
+  padding: 7px 7px;
+  border: 1px solid grey;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.submitButton {
+  border: none;
+  border: 1px solid grey;
+  background-color: #e7e7e7;
+  color: black;
+}
+
+.resetButton {
+  border: none;
+  border: 1px solid grey;
+  margin-left: 20px;
+  background-color: #e7e7e7;
+  color: black;
+}
+
+.full-width {
+  width: 100%;
+}
