@@ -18,88 +18,105 @@ const ZIP_REGEX = new RegExp('^[1-9][0-9]{5}')
 })
 export class AddpersonComponent implements OnInit {
 
-  states : string[] = ["Maharashtra", "Gujarat", "UP"];
-  cities : string[] = ["Mumbai", "Bhuj", "Lucknow"];
+  states: any[] = [];
+  cities: any[] = [];
 
-  form : FormGroup;
-  country : any;
-  errors : {[key : string]: string} ={
-    name : '',
-    email : '', 
-    phoneNumber : '',
-    locality : '',
-    zip : ''
+  form: FormGroup;
+  country: any;
+  errors: { [key: string]: string } = {
+    name: '',
+    email: '',
+    phoneNumber: '',
+    locality: '',
+    zip: ''
   }
 
-  regex : {[key: string]: RegExp} = {
-    name : NAME_REGEX, 
-    phoneNumber : PHONE_REGEX,
-    locality : LOCALITY_REGEX,
-    zip : ZIP_REGEX
+  regex: { [key: string]: RegExp } = {
+    name: NAME_REGEX,
+    phoneNumber: PHONE_REGEX,
+    locality: LOCALITY_REGEX,
+    zip: ZIP_REGEX
   }
 
-  person : Person = new Person();
+  person: Person = new Person();
 
-  constructor(private formBuilder : FormBuilder, 
-    private router : Router,
-    private csc : CscService) { 
-      this.form = this.formBuilder.group({
-        name : ['', [Validators.required, Validators.pattern(NAME_REGEX)]],
-         phoneNumber : ['', [Validators.required, Validators.pattern(PHONE_REGEX)]],
-        email : ['', [Validators.required, Validators.email]],
-        locality : ['', [Validators.required, Validators.pattern(LOCALITY_REGEX)]],
-        state : ['', Validators.required],
-        city : ['', Validators.required],
-        zip : ['', [Validators.required, Validators.pattern(ZIP_REGEX)]]
-      }) ;
-      this.person.address = {
-        locality : '',
-        state : '',
-        city : '',
-        zip : ''
-      }
-      console.log(this.csc.getStates());
+  constructor(private formBuilder: FormBuilder,
+    private router: Router,
+    private csc: CscService) {
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.pattern(NAME_REGEX)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(PHONE_REGEX)]],
+      email: ['', [Validators.required, Validators.email]],
+      locality: ['', [Validators.required, Validators.pattern(LOCALITY_REGEX)]],
+      state: ['', Validators.required],
+      city: ['', Validators.required],
+      zip: ['', [Validators.required, Validators.pattern(ZIP_REGEX)]]
+    });
+    this.person.address = {
+      locality: '',
+      state: '',
+      city: '',
+      zip: ''
     }
+    this.assignStateVal();
+  }
+
+  assignStateVal() {
+    this.csc.get().subscribe((resp: any) => {
+      this.states = resp.map[0].map(obj => obj.state).sort();
+    })
+  }
 
   ngOnInit(): void {
   }
 
-  submit(){
-    if(this.form.valid){
+  submit() {
+    if (this.form.valid) {
       this.createJsonObject(this.form.value);
       console.log(this.person);
-    
+
       this.router.navigateByUrl('/home');
     }
   }
 
-  createJsonObject(data:any){
+  createJsonObject(data: any) {
     this.person.name = data.name;
     this.person.email = data.email;
     this.person.phoneNumber = data.phoneNumber;
     this.person.address = {
-      locality : data.locality,
-      state : data.state,
-      city : data.city,
-      zip : data.zip
+      locality: data.locality,
+      state: data.state,
+      city: data.city,
+      zip: data.zip
     }
   }
 
-  validate(field){
-    if(this.getControl(field).invalid){
+  validate(field) {
+    if (this.getControl(field).invalid) {
       this.errors[field] = 'Invalid ' + field;
       return true;
-    }else{
+    } else {
       this.errors[field] = '';
       return false;
     }
   }
 
-  getControl(field){
+  getControl(field) {
     return this.form.get(field);
   }
 
-  reset(){
+  setCities(event: any) {
+    this.csc.get().subscribe((resp: any) => {
+      resp.map[0].forEach(element => {
+        if (element.state == event.value) {
+          this.cities = element.cities.sort();
+          return;
+        }
+      });
+    })
+  }
+
+  reset() {
     this.form.reset();
   }
 }

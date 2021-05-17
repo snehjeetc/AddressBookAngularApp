@@ -68,7 +68,10 @@
         <div class="select1">
           <mat-form-field appearance="fill" class="mat-field">
             <mat-label>State</mat-label>
-            <mat-select formControlName="state">
+            <mat-select
+              formControlName="state"
+              (selectionChange)="setCities($event)"
+            >
               <mat-option *ngFor="let state of states" [value]="state">
                 {{ state }}
               </mat-option>
