@@ -3,11 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Person } from 'src/app/model/person';
 import { Router } from '@angular/router';
 import { CscService } from 'src/app/services/csc/csc.service';
+import { AddressBookService } from 'src/app/services/adressBookService/address-book.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 
 const NAME_REGEX = new RegExp('[A-Z][a-z]{2,}(\s[A-Z][a-z]*)*');
 const PHONE_REGEX = new RegExp('^(?:(?:\\+|0{0,2})91(\\s*[\\ -]\\s*)?|[0]?)?[789]\\d{9}|(\\d[ -]?){10}\\d$');
-const LOCALITY_REGEX = new RegExp('^[a-zA-Z0-9-/]+');
+const LOCALITY_REGEX = new RegExp('^[a-zA-Z0-9-/]{1,}(\s[a-zA-Z0-9-/]*)*');
 const ZIP_REGEX = new RegExp('^[1-9][0-9]{5}')
 
 
@@ -42,7 +45,9 @@ export class AddpersonComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
-    private csc: CscService) {
+    private csc: CscService,
+    private addressBookService: AddressBookService,
+    private dialog: MatDialog) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(NAME_REGEX)]],
       phoneNumber: ['', [Validators.required, Validators.pattern(PHONE_REGEX)]],
@@ -74,8 +79,22 @@ export class AddpersonComponent implements OnInit {
     if (this.form.valid) {
       this.createJsonObject(this.form.value);
       console.log(this.person);
+      this.addressBookService.addContact(this.person).subscribe(resp => {
+        console.log(resp);
+      }, (error) => {
+        console.log(error);
+      })
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '250px',
+        data: { name: this.person.name, page: 'home' }
+      });
 
-      this.router.navigateByUrl('/home');
+      dialogRef.afterClosed().subscribe(result => {
+        if (result == 'home')
+          this.router.navigateByUrl('/home');
+        else
+          this.reset();
+      })
     }
   }
 
