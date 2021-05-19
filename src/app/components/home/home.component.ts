@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AddressBookService } from 'src/app/services/adressBookService/address-book.service';
+import { UpdateComponent } from '../update/update.component';
 
 export interface PeriodicElement {
   name: string;
@@ -31,7 +33,8 @@ export class HomeComponent implements OnInit {
   contactList: any[] = [];
   displayedColumns: string[] = ['Name', 'Phone', 'Email', 'Locality', 'State', 'City', 'Zip', 'Action']
 
-  constructor(private addressBookService: AddressBookService) { this.getContactList(); }
+  constructor(private addressBookService: AddressBookService,
+    private dialog: MatDialog) { this.getContactList(); }
   ngOnInit(): void {
 
   }
@@ -44,11 +47,21 @@ export class HomeComponent implements OnInit {
   }
 
   deleteContact(id) {
-
+    this.addressBookService.deleteContact(id).subscribe((resp: any) => {
+      console.log(resp);
+      this.getContactList();
+    })
   }
 
-  updateContact(id) {
-
+  updateContact(contact) {
+    const dialogRef = this.dialog.open(UpdateComponent, {
+      width: '500px',
+      data: { contact }
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Updation done : ", result);
+      this.getContactList();
+    })
   }
 
 }

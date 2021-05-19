@@ -1,1 +1,81 @@
-<p>update works!</p>
+<div class="main-container">
+  <form
+    class="form-container"
+    fxLayout="row"
+    fxLayoutAlign="space-between none"
+  >
+    <div class="left-col">
+      <!-- 1.) Name 2.) Email 3.) State 4.) zip -->
+      <div class="name">
+        <mat-form-field appearance="outline" class="element">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" />
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="email">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" />
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="state">
+        <mat-form-field appearance="fill" class="mat-field">
+          <mat-label>State</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let state of states" [value]="state"
+              >{{ state }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="zip">
+        <mat-form-field appearance="outline" class="mat-field">
+          <mat-label>Zip</mat-label>
+          <input matInput placeholder="Zip" />
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <!-- 5.) Phone 3.) Address 4.) City 5.) Buttons -->
+
+      <div class="phone">
+        <mat-form-field at-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput placeholder="Phone Number" />
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="address">
+        <mat-form-field appearance="outline" class="element">
+          <mat-label>Address</mat-label>
+          <input matInput placeholder="Address" />
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="city">
+        <mat-form-field appearance="fill" class="mat-field">
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngFor="let city of cities" [value]="city"
+              >{{ city }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="buttons" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-stroked-button color="primary">Submit</button>
+        <button mat-stroked-button color="accent">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>

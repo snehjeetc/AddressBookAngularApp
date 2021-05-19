@@ -11,7 +11,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 const NAME_REGEX = new RegExp('[A-Z][a-z]{2,}(\s[A-Z][a-z]*)*');
 const PHONE_REGEX = new RegExp('^(?:(?:\\+|0{0,2})91(\\s*[\\ -]\\s*)?|[0]?)?[789]\\d{9}|(\\d[ -]?){10}\\d$');
 const LOCALITY_REGEX = new RegExp('^[a-zA-Z0-9-/]{1,}(\s[a-zA-Z0-9-/]*)*');
-const ZIP_REGEX = new RegExp('^[1-9][0-9]{5}')
+const ZIP_REGEX = new RegExp('^[1-9][0-9]{5}');
 
 
 @Component({
@@ -69,6 +69,8 @@ export class AddpersonComponent implements OnInit {
   assignStateVal() {
     this.csc.get().subscribe((resp: any) => {
       this.states = resp.map[0].map(obj => obj.state).sort();
+    }, (error) => {
+      console.log(error);
     })
   }
 
@@ -132,6 +134,8 @@ export class AddpersonComponent implements OnInit {
           return;
         }
       });
+    }, (error) => {
+      console.log(error);
     })
   }
 
