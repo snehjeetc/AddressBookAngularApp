@@ -20,7 +20,7 @@ export class UpdateComponent implements OnInit {
   states: string[] = [];
   cities: string[] = [];
 
-  person: Person;
+  person: Person = new Person();
 
   name: string;
   phoneNumber: string;
@@ -57,10 +57,12 @@ export class UpdateComponent implements OnInit {
     this.name = data.contact.name;
     this.phoneNumber = data.contact.phoneNumber;
     this.email = data.contact.email;
-    this.state = data.contact.state;
-    this.city = data.contact.city;
-    this.locality = data.contact.locality;
-    this.zip = data.contact.zip;
+    this.state = data.contact.address.state;
+    this.city = data.contact.address.city;
+    this.locality = data.contact.address.locality;
+    this.zip = data.contact.address.zip;
+
+    console.log(data.contact);
 
     this.csc.get().subscribe((resp: any) => {
       this.states = resp.map[0].map(obj => obj.state).sort();

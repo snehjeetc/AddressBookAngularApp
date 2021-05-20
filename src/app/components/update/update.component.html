@@ -3,13 +3,20 @@
     class="form-container"
     fxLayout="row"
     fxLayoutAlign="space-between none"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
   >
     <div class="left-col">
       <!-- 1.) Name 2.) Email 3.) State 4.) zip -->
       <div class="name">
         <mat-form-field appearance="outline" class="element">
           <mat-label>Name</mat-label>
-          <input matInput placeholder="Name" />
+          <input
+            matInput
+            placeholder="Name"
+            formControlName="name"
+            [(ngModel)]="name"
+          />
           <mat-error *ngIf="validate('name')">{{ errors["name"] }}</mat-error>
         </mat-form-field>
       </div>
@@ -17,7 +24,12 @@
       <div class="email">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" />
+          <input
+            matInput
+            placeholder="Email"
+            formControlName="email"
+            [(ngModel)]="email"
+          />
           <mat-error *ngIf="validate('email')">{{ errors["email"] }}</mat-error>
         </mat-form-field>
       </div>
@@ -25,7 +37,11 @@
       <div class="state">
         <mat-form-field appearance="fill" class="mat-field">
           <mat-label>State</mat-label>
-          <mat-select>
+          <mat-select
+            formControlName="state"
+            [(ngModel)]="state"
+            (selectionChange)="setCities($event.value)"
+          >
             <mat-option *ngFor="let state of states" [value]="state"
               >{{ state }}
             </mat-option>
@@ -36,7 +52,12 @@
       <div class="zip">
         <mat-form-field appearance="outline" class="mat-field">
           <mat-label>Zip</mat-label>
-          <input matInput placeholder="Zip" />
+          <input
+            matInput
+            placeholder="Zip"
+            formControlName="zip"
+            [(ngModel)]="zip"
+          />
           <mat-error *ngIf="validate('zip')">{{ errors["zip"] }}</mat-error>
         </mat-form-field>
       </div>
@@ -48,7 +69,12 @@
       <div class="phone">
         <mat-form-field at-form-field appearance="outline" class="full-width">
           <mat-label>Phone Number</mat-label>
-          <input matInput placeholder="Phone Number" />
+          <input
+            matInput
+            placeholder="Phone Number"
+            formControlName="phoneNumber"
+            [(ngModel)]="phoneNumber"
+          />
           <mat-error *ngIf="validate('phoneNumber')">{{
             errors["phoneNumber"]
           }}</mat-error>
@@ -58,7 +84,12 @@
       <div class="address">
         <mat-form-field appearance="outline" class="element">
           <mat-label>Address</mat-label>
-          <input matInput placeholder="Address" />
+          <input
+            matInput
+            placeholder="Address"
+            formControlName="locality"
+            [(ngModel)]="locality"
+          />
           <mat-error *ngIf="validate('locality')">{{
             errors["locality"]
           }}</mat-error>
@@ -68,9 +99,9 @@
       <div class="city">
         <mat-form-field appearance="fill" class="mat-field">
           <mat-label>City</mat-label>
-          <mat-select formControlName="city">
-            <mat-option *ngFor="let city of cities" [value]="city"
-              >{{ city }}
+          <mat-select formControlName="city" [(ngModel)]="city">
+            <mat-option *ngFor="let c of cities" [value]="c"
+              >{{ c }}
             </mat-option>
           </mat-select>
         </mat-form-field>
