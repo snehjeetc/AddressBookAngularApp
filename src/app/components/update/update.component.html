@@ -10,7 +10,7 @@
         <mat-form-field appearance="outline" class="element">
           <mat-label>Name</mat-label>
           <input matInput placeholder="Name" />
-          <mat-error></mat-error>
+          <mat-error *ngIf="validate('name')">{{ errors["name"] }}</mat-error>
         </mat-form-field>
       </div>
 
@@ -18,7 +18,7 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
           <input matInput placeholder="Email" />
-          <mat-error></mat-error>
+          <mat-error *ngIf="validate('email')">{{ errors["email"] }}</mat-error>
         </mat-form-field>
       </div>
 
@@ -37,7 +37,7 @@
         <mat-form-field appearance="outline" class="mat-field">
           <mat-label>Zip</mat-label>
           <input matInput placeholder="Zip" />
-          <mat-error></mat-error>
+          <mat-error *ngIf="validate('zip')">{{ errors["zip"] }}</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -49,7 +49,9 @@
         <mat-form-field at-form-field appearance="outline" class="full-width">
           <mat-label>Phone Number</mat-label>
           <input matInput placeholder="Phone Number" />
-          <mat-error></mat-error>
+          <mat-error *ngIf="validate('phoneNumber')">{{
+            errors["phoneNumber"]
+          }}</mat-error>
         </mat-form-field>
       </div>
 
@@ -57,7 +59,9 @@
         <mat-form-field appearance="outline" class="element">
           <mat-label>Address</mat-label>
           <input matInput placeholder="Address" />
-          <mat-error></mat-error>
+          <mat-error *ngIf="validate('locality')">{{
+            errors["locality"]
+          }}</mat-error>
         </mat-form-field>
       </div>
 
